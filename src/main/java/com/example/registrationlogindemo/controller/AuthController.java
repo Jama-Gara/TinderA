@@ -36,21 +36,15 @@ public class AuthController {
     public String mainpage() {
         return "mainpage";
     }
-//    @PostMapping("/user")
-//    public String postUser(Model model) {
-//        UserDto user = new UserDto();
-//        model.addAttribute("user", user);
-//        return "user";
+
+//    @RequestMapping("/user")
+//    public ModelAndView getUser() {
+//        User user = new User(7L,"Jhon", "jhon84@gmail.com","123",
+//                (List<Role>) new ArrayList<Role>());
+//        ModelAndView modelAndView = new ModelAndView("user");
+//        modelAndView.addObject("user", user);
+//        return modelAndView;
 //    }
-//
-    @RequestMapping("/user")
-    public ModelAndView getUser() {
-        User user = new User(7L,"Jhon", "jhon84@gmail.com","123",
-                (List<Role>) new ArrayList<Role>());
-        ModelAndView modelAndView = new ModelAndView("user");
-        modelAndView.addObject("user", user);
-        return modelAndView;
-    }
 
     @GetMapping("register")
     public String showRegistrationForm(Model model){
@@ -68,6 +62,7 @@ public class AuthController {
         if (existing!=null) {
             result.rejectValue("email", null,
                     "There is already an account registered with that email");
+
         }
         if (result.hasErrors()) {
             model.addAttribute("user", user);
@@ -76,19 +71,6 @@ public class AuthController {
         userServiceImpl.saveUser(user);
         return "redirect:/login";
     }
-
-//    @GetMapping("/users")
-//    public String listRegisteredUsers(Model model){
-//        List<UserDto> users = userService.findAllUsers();
-//        model.addAttribute("users", users);
-//        return "users";
-    }
-
-//    @GetMapping("/users")
-//    public String listRegisteredUsers(Model model){
-//        List<UserDto> users = userServiceImpl.findAllUsers();
-//        model.addAttribute("users", users);
-//        return "users";
-//    }
+ }
 
 

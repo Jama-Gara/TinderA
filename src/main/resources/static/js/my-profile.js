@@ -26,6 +26,17 @@ $('#gender-select').ddslick({
   selectText: "Select your gender",
 });
 
+// $( function() {
+//   selectText: "Select your bday",
+//   $( "#datepicker" ).datepicker();
+// } );
+
+$(function() {
+  $("#birthday").datepicker({
+    dateFormat: "dd-mm-yy" // tarihin görüntülenme biçimi
+  });
+});
+
 document.querySelector(".dd-select").addEventListener("click", ()=>{
   document.querySelector(".dd-selected").style.borderRadius = '10px 10px 0 0'
 });
