@@ -5,8 +5,19 @@
 </head>
 <body>
 <!--<h1>Welcome, <span th:text="${user.getName()}"></span>!</h1>-->
-<div th:if="${#authentication.principal != null}">
-    <p>Signed in as: <span th:text="${#authentication.principal.username}"></span></p>
+<p>Test
+</p>
+<form method="post" th:action="@{/user}" >
+<div>
+<label class="profile-description-date-container">
+    <span class="profile-description-date-description">Birthday</span>
+    <input type="text" name="birthday" th:value="${birthday}"
+           th:format="'yyyy-MM-dd'">
+</label>
+    <button class="save-button" type="submit"
+            th:text="Save" value="save">SaveInfo</button>
+
 </div>
+</form>
 </body>
 </html>

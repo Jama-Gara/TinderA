@@ -25,12 +25,10 @@
 <!--        </div>-->
         <p class="login-section-container-description">To keep connected with us please login with personal
             information by email address and password</p>
-            <form action="/login" method="post" th:action="@{/login}">
+        <form action="/login" method="post" th:action="@{/login}">
             <div class="login-section-container-form-input-wrapper">
                 <img src="./img/mail-icon.svg" alt="User Icon">
                 <label for="email"></label>
-<!--                <input  id="email" placeholder="Email address"-->
-<!--                       type="email" name="email">-->
                 <input class="login-section-container-form-input" type="text" id="email" name="email" required autofocus>
             </div>
             <div class="login-section-container-form-input-wrapper">
