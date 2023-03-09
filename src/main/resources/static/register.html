@@ -24,14 +24,14 @@
                 <img src="./img/user-icon.svg" alt="User Icon">
                 <label for="firstName"></label>
                 <input class="registration-section-container-form-input"
-                       id="firstName"
-                       name="firstName"
+                       id="firstname"
+                       name="firstname"
                        placeholder="Enter first name"
-                       th:field="*{firstName}"
+                       th:field="*{firstname}"
                        type="text"
                 />
-                <p th:errors="*{firstName}" class="text-danger"
-                   th:if="${#fields.hasErrors('firstName')}">
+                <p th:errors="*{firstname}" class="text-danger"
+                   th:if="${#fields.hasErrors('firstname')}">
                 </p>
             </div>
             <div class="registration-section-container-form-input-wrapper">

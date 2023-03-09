@@ -14,37 +14,30 @@ import java.util.List;
 @Entity
 @Table(name="users")
 //@FieldDefaults(level = AccessLevel.PRIVATE)
-public class User
-{
+public class User {
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable=false)
     private String firstname;
-
     @Column(nullable=true)
     private String surname;
-
     @Column(nullable=false, unique=true)
     private String email;
-
     @Column(nullable=false)
     private String password;
-
     @Column(nullable=true)
     private String nickname;
-
     @Column(nullable=true)
     private String location;
-
     @Column(nullable=true)
     @Enumerated(EnumType.STRING)
     private Gender gender;
     @Column(nullable=true)
     private LocalDate birthday;
+    @Column(nullable=true)
+    private String userInfo;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(

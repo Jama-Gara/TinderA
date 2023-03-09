@@ -10,7 +10,7 @@
 <body>
 
 <header class="header" th:fragment="header">
-    <a href="./login.html" class="header-link"><img src="./img/iba-logo.svg" alt="IBA Tech Academy"></a>
+    <a href="./login" class="header-link"><img src="./img/iba-logo.svg" alt="IBA Tech Academy"></a>
 </header>
 <section class="login-section">
 
@@ -35,7 +35,6 @@
                 <img src="./img/lock-icon.svg" alt="User Icon">
                 <label for="password"></label>
                 <input class="login-section-container-form-input" type="password" id="password" name="password" required>
-<!--                <input  id="password" placeholder="Password" type="password" name="password">-->
             </div>
             <div class="login-section-container-options">
                 <div class="login-section-container-options-wrapper">
@@ -44,14 +43,13 @@
                         <span class="login-section-container-options-checkmark"></span>
                     </label>
                 </div>
-                <a href="forgot-password.html" class="login-section-container-options-link">Forgot password?</a>
+                <a href="forgot-password" class="login-section-container-options-link">Forgot password?</a>
             </div>
 
             <div class="login-section-form-buttons">
                 <button type="submit" class="login-section-container-form-signup"
                         th:text="Login" value="Login">Login now</button>
-                <div th:if="${param.error}" class="alert alert-error">Invalid username and password.
-                </div>
+<!--                <div th:if="${param.error}" class="alert alert-error">Invalid username and password.</div>-->
                 <a th:href="@{/register}" class="login-section-container-form-signup">Create account</a>
             </div>
             <div class="login-section-form-social">
@@ -66,6 +64,10 @@
                     <a href="#" class="login-section-form-social-icon"><img src="./img/linked-in.svg" alt="Linked In"></a>
                     <a href="#" class="login-section-form-social-icon mr0"><img src="./img/twitter.svg" alt="Twitter"></a>
                 </div>
+            </div>
+
+            <div th:if="${session.errorMessage}" class="alert alert-danger">
+                <span th:text="${session.errorMessage}"></span>
             </div>
         </form>
     </div>

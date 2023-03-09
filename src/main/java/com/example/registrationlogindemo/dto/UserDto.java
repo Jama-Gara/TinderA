@@ -23,15 +23,15 @@ public class UserDto
     private String email;
     @NotEmpty(message = "Password should not be empty")
     private String password;
-
     private String surname;
     private String nickname;
     private String location;
     private String gender;
-    private LocalDate birthday;
+    private String birthday;
+    private String userInfo;
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
+//    public void setBirthday(String birthday) {
+//        this.birthday = birthday;
+//    }
 
 }

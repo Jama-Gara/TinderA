@@ -1,24 +1,18 @@
 package com.example.registrationlogindemo.controller;
 
-import com.example.registrationlogindemo.dto.MyprofileRequest;
 import com.example.registrationlogindemo.dto.SignInRequest;
-import com.example.registrationlogindemo.dto.UserDto;
 import com.example.registrationlogindemo.entity.Gender;
-import com.example.registrationlogindemo.entity.User;
 import com.example.registrationlogindemo.service.UserService;
-import com.example.registrationlogindemo.service.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.time.LocalDate;
+import java.util.Enumeration;
 
 @Controller
 @Slf4j
@@ -27,13 +21,17 @@ public class LoginController {
     private UserService userService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserServiceImpl userServiceImpl;
+    @GetMapping("/forgot-password")
+    public String showForgetPass() {
+        return "forgot-password";
+    }
+
 
     @GetMapping("/login")
     public String showLoginForm() {
         return "login";
     }
+
     @PostMapping("/login")
     public RedirectView submitLoginForm(SignInRequest request, HttpSession session) {
         String email = request.getEmail();
@@ -43,7 +41,7 @@ public class LoginController {
         log.info(userService.findByEmail(email).getEmail());
         log.info(password);
         log.info(userService.findByEmail(email).getPassword());
-//        log.info("girildi post " +  passwordEncoder.encode(password));
+//      log.info("girildi post " +  passwordEncoder.encode(password));
         if (isAuthenticated) {
             String username = userService.findByEmail(email).getFirstname();
             String firstname = userService.findByEmail(email).getFirstname();
@@ -52,6 +50,7 @@ public class LoginController {
             String nickname = userService.findByEmail(email).getNickname();
             String location = userService.findByEmail(email).getLocation();
             Gender gender = userService.findByEmail(email).getGender();
+            String userInfo = userService.findByEmail(email).getUserInfo();
             log.info("giriş doğruysa, kullanıcıyı bir sonraki sayfaya yönlendirin");
             session.setAttribute("username", username); // store the username in the session
             session.setAttribute("firstname", firstname); // store the username in the session
@@ -60,6 +59,8 @@ public class LoginController {
             session.setAttribute("nickname", nickname);
             session.setAttribute("location", location);
             session.setAttribute("gender", gender);
+            session.setAttribute("userInfo", userInfo);
+            System.out.println(userInfo);
             return new RedirectView("/mainpage");
 
         } else {
@@ -69,13 +70,22 @@ public class LoginController {
         }
     }
 
-    @PostMapping("/my-profile/save")
-    public RedirectView submitMyProfile(HttpSession session,
-                                        @ModelAttribute("user") UserDto user) {
-        log.info("posta girdi");
-        String email = (String) session.getAttribute("sesEmail");
-        userServiceImpl.saveUserDetails(user,email);
-        return new RedirectView("/my-profile");
+
+
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        System.out.println("logOut page");
+        if (session != null) {
+            Enumeration<String> attributeNames = session.getAttributeNames();
+            while (attributeNames.hasMoreElements()) {
+                String attributeName = attributeNames.nextElement();
+                session.removeAttribute(attributeName);
+            }
+            session.invalidate();
+            return  "redirect:/login";
+        }
+        return "redirect:/login";
     }
 
 
